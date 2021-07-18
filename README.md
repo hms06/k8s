@@ -47,7 +47,7 @@
 	apt-get install -y --allow-change-held-packages kubeadm=1.21.x-00  -> 홀드된 패키지를 업그레이드 하겠다는 의미
 
 ## 1.18.19 -> 1.18.20 으로 패치만 업그레이드 해보기
-	* 컨트롤 플레인 업그레이드
+>	 컨트롤 플레인 업그레이드
 		# kubeadm 업그레이드
 		sudo apt-cache madison kubeadm
 		sudo apt-get update && \
@@ -62,7 +62,7 @@
 		sudo systemctl restart kubelet
 
 
-	* 노드 업그레이드
+>	노드 업그레이드
 		# kubeadm 업그레이드
 		sudo apt-get update && \
 		sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
