@@ -1,4 +1,5 @@
-**Kubernetes 설치 및 Cluster 생성하여 배포해보기**
+>	**Kubernetes 설치 및 Cluster 생성하여 배포해보기**
+
 	# kubeadm, kubelet 및 kubectl 설치
  	sudo apt-get update
  	sudo apt-get install -y apt-transport-https ca-certificates curl
@@ -18,6 +19,7 @@
 
 
 **node 추가**
+
 	kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 	kubectl get nodes     -> ready 상태인지 확인
 	kubeadm token list    -> 토큰 값 확인
@@ -38,47 +40,44 @@
  
   
   
-**버전 업그레이드**
-(apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다.)
-apt-get update && \
-apt-get install -y --allow-change-held-packages kubeadm=1.21.x-00  -> 홀드된 패키지를 업그레이드 하겠다는 의미
+>	**버전 업그레이드**
+>	>	* apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다.
+
+	apt-get update && \
+	apt-get install -y --allow-change-held-packages kubeadm=1.21.x-00  -> 홀드된 패키지를 업그레이드 하겠다는 의미
 
 # 1.18.19 -> 1.18.20 으로 패치만 업글해보기
+	* 컨트롤 플레인 업그레이드
+	# kubeadm 업그레이드
+	sudo apt-cache madison kubeadm
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
+	kubeadm upgrade plan
+	sudo kubeadm upgrade apply v1.18.20
 
-<컨트롤 플레인 업그레이드>
-*kubeadm 업그레이드
-sudo apt-cache madison kubeadm
-sudo apt-get update && \
-sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
-kubeadm version
-kubeadm upgrade plan
-sudo kubeadm upgrade apply v1.18.20
-
-*kubelet과 kubectl 업그레이드
-sudo apt-get update && \
-sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
-kubelet --version
-kubectl version
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
+	#kubelet과 kubectl 업그레이드
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
+	sudo systemctl daemon-reload
+	sudo systemctl restart kubelet
 
 
-# 노드 업그레이드
-*kubeadm 업그레이드
-sudo apt-get update && \
-sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
-sudo kubeadm upgrade node
+	* 노드 업그레이드
+	# kubeadm 업그레이드
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
+	sudo kubeadm upgrade node
 
-# kubelet과 kubectl 업그레이드
-sudo apt-get update && \
-sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
+	# kubelet과 kubectl 업그레이드
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
+	sudo systemctl daemon-reload
+	sudo systemctl restart kubelet
 
 
-# 컨트롤 플레인에 가서 버전 제대로 올라왔는지 확인
-kubectl get nodes
-kubectl get pods -A인        -> 러닝되는지 확인
+	# 컨트롤 플레인에 가서 버전 제대로 올라왔는지 확인
+	kubectl get nodes
+	kubectl get pods -A인        -> 러닝되는지 확인
 
   
 
