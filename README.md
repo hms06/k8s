@@ -48,38 +48,44 @@
 
 ## 1.18.19 -> 1.18.20 으로 패치만 업그레이드 해보기
 	* 컨트롤 플레인 업그레이드
-	# kubeadm 업그레이드
-	sudo apt-cache madison kubeadm
-	sudo apt-get update && \
-	sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
-	kubeadm upgrade plan
-	sudo kubeadm upgrade apply v1.18.20
+		# kubeadm 업그레이드
+		sudo apt-cache madison kubeadm
+		sudo apt-get update && \
+		sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
+		kubeadm upgrade plan
+		sudo kubeadm upgrade apply v1.18.20
 
-	#kubelet과 kubectl 업그레이드
-	sudo apt-get update && \
-	sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
-	sudo systemctl daemon-reload
-	sudo systemctl restart kubelet
+		#kubelet과 kubectl 업그레이드
+		sudo apt-get update && \
+		sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
+		sudo systemctl daemon-reload
+		sudo systemctl restart kubelet
 
 
 	* 노드 업그레이드
-	# kubeadm 업그레이드
-	sudo apt-get update && \
-	sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
-	sudo kubeadm upgrade node
+		# kubeadm 업그레이드
+		sudo apt-get update && \
+		sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
+		sudo kubeadm upgrade node
 
-	# kubelet과 kubectl 업그레이드
-	sudo apt-get update && \
-	sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
-	sudo systemctl daemon-reload
-	sudo systemctl restart kubelet
+		# kubelet과 kubectl 업그레이드
+		sudo apt-get update && \
+		sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
+		sudo systemctl daemon-reload
+		sudo systemctl restart kubelet
 
 
-	# 컨트롤 플레인에 가서 버전 제대로 올라왔는지 확인
-	kubectl get nodes
-	kubectl get pods -A인        -> 러닝되는지 확인
+		# 컨트롤 플레인에 가서 버전 제대로 올라왔는지 확인
+		kubectl get nodes
+		kubectl get pods -A인        -> 러닝되는지 확인
 
   
 
+ ## Metal-LB
  
+ ## ingress
+ 
+ ## rook
+ 
+ ## metrics-server
 
