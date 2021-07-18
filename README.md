@@ -1,5 +1,6 @@
->   Kubernetes 설치 및 Cluster 생성하여 배포해보기
+**Kubernetes 설치 및 Cluster 생성하여 배포해보기**
 # kubeadm, kubelet 및 kubectl 설치
+'''
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -7,6 +8,7 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl            -> 버전 고정해주기. 패키지가 자동으로 업데이트 하지 못하게 방지함.
+'''
 
 # cluster 생성
 * k-control
