@@ -1,4 +1,4 @@
->	**Kubernetes 설치 및 Cluster 생성하여 배포해보기**
+## Kubernetes 설치 및 Cluster 생성하여 배포해보기
 
 	# kubeadm, kubelet 및 kubectl 설치
  	sudo apt-get update
@@ -18,7 +18,7 @@
 	sudo chown $(id -u):$(id -g) $HOME/.kube/config    -> 권한주기
 
 
-**node 추가**
+## node 추가
 
 	kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 	kubectl get nodes     -> ready 상태인지 확인
@@ -40,13 +40,13 @@
  
   
   
->	**버전 업그레이드**
->	>	* apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다.
+>	## 버전 업그레이드
+>	>	apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다.
 
-	apt-get update && \
-	apt-get install -y --allow-change-held-packages kubeadm=1.21.x-00  -> 홀드된 패키지를 업그레이드 하겠다는 의미
+		apt-get update && \
+		apt-get install -y --allow-change-held-packages kubeadm=1.21.x-00  -> 홀드된 패키지를 업그레이드 하겠다는 의미
 
-# 1.18.19 -> 1.18.20 으로 패치만 업글해보기
+## 1.18.19 -> 1.18.20 으로 패치만 업글해보기
 	* 컨트롤 플레인 업그레이드
 	# kubeadm 업그레이드
 	sudo apt-cache madison kubeadm
