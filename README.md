@@ -28,10 +28,10 @@
 
 	openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
 	>    openssl dgst -sha256 -hex | sed 's/^.* //'
-	015ac96083dbcdeece03ff30344df57cf26c0785570975dbeece3c90f0eff824
+	015ac96083dbcdeece03ff30344df57cf26c0785570975dbeece3c90f0eff824               -> 해쉬값 확인
 
 
-	# k-node123 가서 명령어 입력
+	# k-node1, 2, 3 가서 토큰과 해쉬값 붙여넣어 명령어 입력
 	(ubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>)
 	sudo kubeadm join 192.168.200.50:6443 --token bkoyxl.3aht0jk9ws0d4nfj --discovery-token-ca-cert-hash sha256:015ac96083dbcdeece03ff30344df57cf26c0785570975dbeece3c90f0eff824 
 
@@ -49,41 +49,59 @@
 ## 1.18.19 -> 1.18.20 으로 패치만 업그레이드 해보기
 >	 컨트롤 플레인 업그레이드
 >	 
-		# kubeadm 업그레이드
-		sudo apt-cache madison kubeadm
-		sudo apt-get update && \
-		sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
-		kubeadm upgrade plan
-		sudo kubeadm upgrade apply v1.18.20
+	# kubeadm 업그레이드
+	sudo apt-cache madison kubeadm
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
+	kubeadm upgrade plan
+	sudo kubeadm upgrade apply v1.18.20
 
-		#kubelet과 kubectl 업그레이드
-		sudo apt-get update && \
-		sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
-		sudo systemctl daemon-reload
-		sudo systemctl restart kubelet
+	#kubelet과 kubectl 업그레이드
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
+	sudo systemctl daemon-reload
+	sudo systemctl restart kubelet
 
 
 >	노드 업그레이드
 >	
-		# kubeadm 업그레이드
-		sudo apt-get update && \
-		sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
-		sudo kubeadm upgrade node
+	# kubeadm 업그레이드
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubeadm=1.18.20-00
+	sudo kubeadm upgrade node
 
-		# kubelet과 kubectl 업그레이드
-		sudo apt-get update && \
-		sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
-		sudo systemctl daemon-reload
-		sudo systemctl restart kubelet
+	# kubelet과 kubectl 업그레이드
+	sudo apt-get update && \
+	sudo apt-get install -y --allow-change-held-packages kubelet=1.18.20-00 kubectl=1.18.20-00
+	sudo systemctl daemon-reload
+	sudo systemctl restart kubelet
 
 
-		# 컨트롤 플레인에 가서 버전 제대로 올라왔는지 확인
-		kubectl get nodes
-		kubectl get pods -A인        -> 러닝되는지 확인
+	# 컨트롤 플레인에 가서 버전 제대로 올라왔는지 확인
+	kubectl get nodes
+	kubectl get pods -A인        -> 러닝되는지 확인
 
   
 
  ## Metal-LB
+ 
+  	# Manifest를 이용하여 설치해주기
+  	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
+  	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+	
+  	# configmap.yaml 파일 작성
+	apiVersion: v1
+	kind: ConfigMap
+	metadata:
+  	  namespace: metallb-system
+  	  name: config
+	data:
+  	  config: |
+   		address-pools:
+    	- name: default
+      	  protocol: layer2
+      	  addresses:
+      	  - 192.168.200.200-192.168.200.210
  
  ## ingress
  
