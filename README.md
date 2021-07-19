@@ -105,7 +105,23 @@
  
  ## ingress
  
+
  ## rook
  
  ## metrics-server
+	wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.0/components.yaml
+
+	vi components.yaml   ->파일에 들어가서
+	- --kubelet-insecure-tls  -> Deployment.spec.template.spec에 추가해줘야함
+	
+	kubectl create -f components.yaml
+
+	# 확인
+	kubectl get po -n kube-system
+	kubectl describe po -n kube-system metrics-server-766c9b8df-nmwlj
+
+	# 노드&파드 확인해보기
+	kubectl top nodes
+	kubectl top pods
+
 
