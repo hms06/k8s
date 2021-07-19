@@ -104,11 +104,10 @@
       	  - 192.168.200.200-192.168.200.210
  
  ## ingress
- 
 
  ## rook
  
- ## metrics-server
+ ## metrics-server 설치하기
 	wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.0/components.yaml
 
 	vi components.yaml   ->파일에 들어가서
